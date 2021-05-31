@@ -1,18 +1,18 @@
 {
-  "name": "electron-react-boilerplate",
-  "productName": "ElectronReact",
+  "name": "nrj-fr-radio",
+  "productName": "NRJ.fr Radio",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Fast Refresh for rapid application development",
   "scripts": {
     "build": "concurrently \"yarn build:main\" \"yarn build:renderer\"",
-    "build:main": "cross-env NODE_ENV=production webpack --config ./.erb/configs/webpack.config.main.prod.babel.js",
-    "build:renderer": "cross-env NODE_ENV=production webpack --config ./.erb/configs/webpack.config.renderer.prod.babel.js",
+    "build:main": "cross-env NODE_ENV=production webpack --config ./.nfr/configs/webpack.config.main.prod.babel.js",
+    "build:renderer": "cross-env NODE_ENV=production webpack --config ./.nfr/configs/webpack.config.renderer.prod.babel.js",
     "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir src",
     "lint": "cross-env NODE_ENV=development eslint . --cache --ext .js,.jsx,.ts,.tsx",
     "package": "rm -rf src/dist && yarn build && electron-builder build --publish never",
-    "postinstall": "node -r @babel/register .erb/scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn cross-env NODE_ENV=development webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.babel.js && opencollective-postinstall && yarn-deduplicate yarn.lock",
-    "start": "node -r @babel/register ./.erb/scripts/CheckPortInUse.js && yarn start:renderer",
-    "start:main": "cross-env NODE_ENV=development electron -r ./.erb/scripts/BabelRegister ./src/main.dev.ts",
-    "start:renderer": "cross-env NODE_ENV=development webpack serve --config ./.erb/configs/webpack.config.renderer.dev.babel.js",
+    "postinstall": "node -r @babel/register ./.nfr/scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn cross-env NODE_ENV=development webpack --config ./.nfr/configs/webpack.config.renderer.dev.dll.babel.js && opencollective-postinstall && yarn-deduplicate yarn.lock",
+    "start": "node -r @babel/register ./.nfr/scripts/CheckPortInUse.js && yarn start:renderer",
+    "start:main": "cross-env NODE_ENV=development electron -r ./.nfr/scripts/BabelRegister ./src/main.dev.ts",
+    "start:renderer": "cross-env NODE_ENV=development webpack serve --config ./.nfr/configs/webpack.config.renderer.dev.babel.js",
     "test": "jest"
   },
   "lint-staged": {
@@ -30,8 +30,8 @@
     ]
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.erb.ElectronReact",
+    "productName": "NRJ.fr Radio",
+    "appId": "org.bacali95.NrjFr",
     "files": [
       "dist/",
       "node_modules/",
@@ -40,7 +40,7 @@
       "main.prod.js.map",
       "package.json"
     ],
-    "afterSign": ".erb/scripts/Notarize.js",
+    "afterSign": ".nfr/scripts/Notarize.js",
     "mac": {
       "target": [
         "dmg"
@@ -86,38 +86,26 @@
     ],
     "publish": {
       "provider": "github",
-      "owner": "electron-react-boilerplate",
-      "repo": "electron-react-boilerplate"
+      "owner": "bacali95",
+      "repo": "nrj-fr-radio"
     }
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron-react-boilerplate/electron-react-boilerplate.git"
+    "url": "git+https://github.com/bacali95/nrj-fr-radio.git"
   },
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://electron-react-boilerplate.js.org"
+    "name": "Nasreddine Bac Ali",
+    "email": "nasreddine.bacali95@gmail.com",
+    "url": "https://nasreddinebacali.info"
   },
-  "contributors": [
-    {
-      "name": "Amila Welihinda",
-      "email": "amilajack@gmail.com",
-      "url": "https://github.com/amilajack"
-    },
-    {
-      "name": "John Tran",
-      "email": "jptran318@gmail.com",
-      "url": "https://github.com/jooohhn"
-    }
-  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
+    "url": "https://github.com/bacali95/nrj-fr-radio/issues"
   },
   "keywords": [
+    "nrj.fr",
     "electron",
-    "boilerplate",
     "react",
     "typescript",
     "ts",
@@ -126,11 +114,11 @@
     "hot",
     "reload"
   ],
-  "homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
+  "homepage": "https://github.com/bacali95/nrj-fr-radio#readme",
   "jest": {
     "testURL": "http://localhost/",
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/.erb/mocks/fileMock.js",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/.nfr/mocks/fileMock.js",
       "\\.(css|less|sass|scss)$": "identity-obj-proxy"
     },
     "moduleFileExtensions": [
@@ -145,7 +133,7 @@
       "src/node_modules"
     ],
     "setupFiles": [
-      "./.erb/scripts/CheckBuildsExist.js"
+      "./.nfr/scripts/CheckBuildsExist.js"
     ]
   },
   "devDependencies": {
@@ -176,18 +164,21 @@
     "@teamsupercell/typings-for-css-modules-loader": "^2.4.0",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
+    "@types/axios": "^0.14.0",
+    "@types/classnames": "^2.3.1",
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/history": "4.7.6",
     "@types/jest": "^26.0.15",
-    "@types/node": "14.14.10",
-    "@types/react": "^16.9.44",
-    "@types/react-dom": "^16.9.9",
-    "@types/react-router-dom": "^5.1.6",
-    "@types/react-test-renderer": "^16.9.3",
+    "@types/node": "14.17.1",
+    "@types/react": "^17.0.8",
+    "@types/react-dom": "^17.0.5",
+    "@types/react-router-dom": "^5.1.7",
+    "@types/react-test-renderer": "^17.0.1",
     "@types/webpack-env": "^1.15.2",
     "@typescript-eslint/eslint-plugin": "^4.8.1",
     "@typescript-eslint/parser": "^4.8.1",
+    "axios": "^0.21.1",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.1.0",
     "babel-loader": "^8.2.2",
@@ -195,17 +186,18 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "browserslist-config-erb": "^0.0.1",
     "chalk": "^4.1.0",
+    "classnames": "^2.3.1",
     "concurrently": "^5.3.0",
     "core-js": "^3.6.5",
     "cross-env": "^7.0.2",
     "css-loader": "^5.0.1",
     "css-minimizer-webpack-plugin": "^1.1.5",
     "detect-port": "^1.3.0",
-    "electron": "^11.0.1",
+    "electron": "^11.4.7",
     "electron-builder": "^22.10.5",
-    "electron-devtools-installer": "^3.1.1",
+    "electron-devtools-installer": "^3.2.0",
     "electron-notarize": "^1.0.0",
-    "electron-rebuild": "^2.3.2",
+    "electron-rebuild": "^2.3.5",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.3",
     "enzyme-to-json": "^3.5.0",
@@ -229,6 +221,8 @@
     "jest": "^26.1.0",
     "lint-staged": "^10.2.11",
     "mini-css-extract-plugin": "^1.3.1",
+    "mobx": "^5.15.7",
+    "mobx-react": "^6.3.1",
     "node-sass": "^5.0.0",
     "opencollective-postinstall": "^2.0.3",
     "prettier": "^2.0.5",
@@ -248,12 +242,12 @@
     "yarn-deduplicate": "^3.1.0"
   },
   "dependencies": {
-    "electron-debug": "^3.1.0",
-    "electron-log": "^4.2.4",
-    "electron-updater": "^4.3.4",
+    "electron-debug": "^3.2.0",
+    "electron-log": "^4.3.5",
+    "electron-updater": "^4.3.9",
     "history": "^5.0.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",
     "regenerator-runtime": "^0.13.5",
     "source-map-support": "^0.5.19"
@@ -262,9 +256,6 @@
     "node": ">=10.x",
     "npm": ">=6.x",
     "yarn": ">=1.21.3"
-  },
-  "collective": {
-    "url": "https://opencollective.com/electron-react-boilerplate-594"
   },
   "browserslist": [],
   "prettier": {
@@ -280,6 +271,7 @@
         }
       }
     ],
+    "printWidth": 100,
     "singleQuote": true
   },
   "renovate": {
