@@ -1,8 +1,8 @@
 {
   "name": "nrj-fr-radio",
-  "productName": "nrj-fr-radio",
-  "version": "0.0.1",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "productName": "NRJ.fr Radio",
+  "version": "0.0.2",
+  "description": "All the hits of your favorite artists are on NRJ.",
   "main": "./main.prod.js",
   "author": {
     "name": "Nasreddine Bac Ali",

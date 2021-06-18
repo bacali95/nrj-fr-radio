@@ -1,2 +1,3 @@
-@import "css/app.css";
-@import "css/webradio.css";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";

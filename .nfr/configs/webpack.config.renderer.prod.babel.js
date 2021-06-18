@@ -9,6 +9,8 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import { merge } from 'webpack-merge';
 import TerserPlugin from 'terser-webpack-plugin';
+import tailwindcss from 'tailwindcss';
+import autoprefixer from 'autoprefixer';
 import baseConfig from './webpack.config.base';
 import CheckNodeEnv from '../scripts/CheckNodeEnv';
 import DeleteSourceMaps from '../scripts/DeleteSourceMaps';
@@ -52,6 +54,15 @@ export default merge(baseConfig, {
           },
           'css-loader',
           'sass-loader',
+          {
+            loader: 'postcss-loader', // postcss loader needed for tailwindcss
+            options: {
+              postcssOptions: {
+                ident: 'postcss',
+                plugins: [tailwindcss, autoprefixer],
+              },
+            },
+          },
         ],
       },
       // WOFF Font

@@ -4,11 +4,15 @@ import { PlayerState } from './PlayerState';
 import { Radio } from '../types';
 
 export class RootStore {
+  @observable darkMode: boolean;
+
   @observable radios: Radio[] = [];
 
   @observable playerState: PlayerState;
 
   constructor() {
+    this.darkMode = this.getInitialDarkMode();
+
     this.playerState = new PlayerState(this);
 
     autorun(
@@ -34,6 +38,23 @@ export class RootStore {
   refreshAndGet = async (radio: Radio): Promise<Radio | undefined> => {
     await this.refresh();
     return this.radios.find((r) => radio.id === r.id);
+  };
+
+  @action
+  setDarkMode = (darkMode: boolean): void => {
+    this.darkMode = darkMode;
+    localStorage.setItem('darkMode', `${darkMode}`);
+  };
+
+  private getInitialDarkMode = () => {
+    let status = localStorage.getItem('darkMode');
+
+    if (status === null) {
+      status = `${window.matchMedia('(prefers-color-scheme: dark)').matches}`;
+      localStorage.setItem('darkMode', status);
+    }
+
+    return status === 'true';
   };
 }
 

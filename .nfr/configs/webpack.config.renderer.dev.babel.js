@@ -5,6 +5,8 @@ import chalk from 'chalk';
 import { merge } from 'webpack-merge';
 import { spawn, execSync } from 'child_process';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import autoprefixer from 'autoprefixer';
+import tailwindcss from 'tailwindcss';
 import baseConfig from './webpack.config.base';
 import CheckNodeEnv from '../scripts/CheckNodeEnv';
 
@@ -72,6 +74,15 @@ export default merge(baseConfig, {
               sourceMap: true,
             },
           },
+          {
+            loader: 'postcss-loader', // postcss loader needed for tailwindcss
+            options: {
+              postcssOptions: {
+                ident: 'postcss',
+                plugins: [tailwindcss, autoprefixer],
+              },
+            },
+          },
         ],
       },
       {
@@ -88,6 +99,15 @@ export default merge(baseConfig, {
               },
               sourceMap: true,
               importLoaders: 1,
+            },
+          },
+          {
+            loader: 'postcss-loader', // postcss loader needed for tailwindcss
+            options: {
+              postcssOptions: {
+                ident: 'postcss',
+                plugins: [tailwindcss, autoprefixer],
+              },
             },
           },
         ],
@@ -107,6 +127,15 @@ export default merge(baseConfig, {
           },
           {
             loader: 'sass-loader',
+          },
+          {
+            loader: 'postcss-loader', // postcss loader needed for tailwindcss
+            options: {
+              postcssOptions: {
+                ident: 'postcss',
+                plugins: [tailwindcss, autoprefixer],
+              },
+            },
           },
         ],
       },
@@ -132,6 +161,15 @@ export default merge(baseConfig, {
           },
           {
             loader: 'sass-loader',
+          },
+          {
+            loader: 'postcss-loader', // postcss loader needed for tailwindcss
+            options: {
+              postcssOptions: {
+                ident: 'postcss',
+                plugins: [tailwindcss, autoprefixer],
+              },
+            },
           },
         ],
       },
