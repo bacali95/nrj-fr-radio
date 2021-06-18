@@ -31,7 +31,7 @@
   },
   "build": {
     "productName": "NRJ.fr Radio",
-    "appId": "org.bacali95.NrjFr",
+    "appId": "org.bacali95.nrj-fr-radio",
     "files": [
       "dist/",
       "node_modules/",

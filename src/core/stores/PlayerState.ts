@@ -42,6 +42,6 @@ export class PlayerState {
 
   @action
   setHdQuality = (hdQuality: boolean) => {
-    this.hdQuality = hdQuality;
+    this.hdQuality = hdQuality && !!this.radio?.url_hd_aac;
   };
 }

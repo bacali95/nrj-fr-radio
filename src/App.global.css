@@ -1,3 +1,7 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+.-translate-x-40\% {
+  --tw-translate-x: -40%;
+}

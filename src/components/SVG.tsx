@@ -2,34 +2,35 @@ import React from 'react';
 
 class SVG {
   static AnimatedBars() {
-    const width = 15;
     const bars = [
       {
         startHeight: 40,
         endHeight: 60,
-        speed: 0.6,
       },
       {
         startHeight: 30,
         endHeight: 80,
-        speed: 0.6,
       },
       {
         startHeight: 60,
         endHeight: 45,
-        speed: 0.6,
       },
     ];
 
+    const height = 50;
+    const gap = 5;
+    const width = (8 + gap) * bars.length - gap;
+
     return (
-      <svg height="50" width="50" viewBox={`0 0 ${bars.length * width - 5} 100`} fill="#ff">
-        {bars.map(({ startHeight, endHeight, speed }, index) => (
+      <svg height={height} width={width} viewBox="0 0 100 100" fill="#ff">
+        {bars.map(({ startHeight, endHeight }, index) => (
           <rect
             key={`${startHeight}-${endHeight}`}
             height={startHeight}
-            width={width}
+            width={30}
             rx="5"
-            x={index * (width + 5)}
+            ry="5"
+            x={index * 35}
             y={100 - startHeight}
             fill="currentColor"
           >
@@ -38,7 +39,7 @@ class SVG {
               attributeType="XML"
               type="translate"
               values={`${endHeight};${startHeight};${endHeight}`}
-              dur={speed}
+              dur="0.6"
               repeatCount="indefinite"
             />
             <animate
@@ -46,7 +47,7 @@ class SVG {
               attributeType="XML"
               type="translate"
               values={`${100 - endHeight};${100 - startHeight};${100 - endHeight}`}
-              dur={speed}
+              dur="0.6"
               repeatCount="indefinite"
             />
           </rect>
@@ -72,17 +73,17 @@ class SVG {
     </svg>
   );
 
-  static PlayPauseButton: React.FC<{ paused: boolean; setPaused: (value: boolean) => void }> = ({
-    paused,
-    setPaused,
-  }) => (
+  static PlayPauseButton: React.FC<{
+    color?: string;
+    paused: boolean;
+    setPaused: (value: boolean) => void;
+  }> = ({ color, paused, setPaused }) => (
     <svg height="75" width="75" viewBox="0 0 50 50" fill="none" onClick={() => setPaused(!paused)}>
       <circle
-        className="text-gray-400 dark:text-gray-500"
         cx="25"
         cy="25"
         r="24"
-        stroke="currentColor"
+        stroke={color ? `#${color}` : 'currentColor'}
         strokeWidth="1.5"
       />
       <path fill={paused ? 'none' : 'currentColor'} d="M18 16h4v18h-4V16zM28 16h4v18h-4z" />
@@ -114,6 +115,22 @@ class SVG {
         d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
         fillRule="evenodd"
         clipRule="evenodd"
+      />
+    </svg>
+  );
+
+  static VolumeButton: React.FC<{
+    volume: number;
+    onClick: () => void;
+  }> = ({ volume, onClick }) => (
+    <svg width="30" height="30" viewBox="0 0 32 32" onClick={onClick}>
+      <path
+        fill={volume ? 'none' : 'currentColor'}
+        d="M18.4,1.1c-0.6-0.3-1.3-0.2-1.8,0.3L8,9C7.8,9.2,7.5,9.3,7.3,9.3H4.4C2.5,9.3,1,10.8,1,12.6v6.8c0,1.8,1.5,3.3,3.4,3.3h2.8 c0.3,0,0.5,0.1,0.7,0.3l8.6,7.6c0.3,0.3,0.7,0.4,1.1,0.4c0.2,0,0.5,0,0.7-0.1c0.6-0.3,1-0.8,1-1.5V2.6C19.4,2,19,1.4,18.4,1.1z M27.8,16l3-3c0.3-0.3,0.3-0.8,0-1.1c-0.3-0.3-0.8-0.3-1.1,0l-3,3l-3-3c-0.3-0.3-0.8-0.3-1.1,0c-0.3,0.3-0.3,0.8,0,1.1l3,3l-3,3 c-0.3,0.3-0.3,0.8,0,1.1c0.1,0.1,0.3,0.2,0.5,0.2c0.2,0,0.4-0.1,0.5-0.2l3-3l3,3c0.1,0.1,0.3,0.2,0.5,0.2c0.2,0,0.4-0.1,0.5-0.2 c0.3-0.3,0.3-0.8,0-1.1L27.8,16z"
+      />
+      <path
+        fill={!volume ? 'none' : 'currentColor'}
+        d="M18.4,1.1c-0.6-0.3-1.3-0.2-1.8,0.3L8,9C7.8,9.2,7.6,9.3,7.3,9.3H4.4C2.5,9.3,1,10.8,1,12.6v6.8c0,1.8,1.5,3.3,3.4,3.3h2.9 c0.3,0,0.5,0.1,0.7,0.3l8.7,7.6c0.3,0.3,0.7,0.4,1.1,0.4c0.2,0,0.5,0,0.7-0.1c0.6-0.3,1-0.8,1-1.5V2.6C19.4,2,19,1.4,18.4,1.1z M23.2,8.9c-0.3-0.3-0.7-0.3-1.1-0.1c-0.3,0.3-0.3,0.7-0.1,1.1c3.1,3.6,3.1,9,0,12.6c-0.3,0.3-0.2,0.8,0.1,1.1 c0.1,0.1,0.3,0.2,0.5,0.2c0.2,0,0.4-0.1,0.6-0.3C26.8,19.2,26.8,13,23.2,8.9z M26.5,4.6c-0.3-0.3-0.8-0.3-1.1,0 c-0.3,0.3-0.3,0.8,0,1.1c5.4,5.9,5.4,15.1,0,21c-0.3,0.3-0.3,0.8,0,1.1c0.1,0.1,0.3,0.2,0.5,0.2c0.2,0,0.4-0.1,0.6-0.2 C32.5,21.2,32.5,11.1,26.5,4.6z"
       />
     </svg>
   );

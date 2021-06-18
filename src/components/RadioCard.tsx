@@ -1,28 +1,33 @@
-import * as React from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import { RootStore } from '../core/stores/rootStore';
 import { getCurrentSong, injectAndObserve } from '../core/utils';
 import { Radio } from '../core/types';
 import SVG from './SVG';
 
-type RadioCardProps = {
+type Props = {
   radio: Radio;
   store?: RootStore;
 };
 
-const RadioCard: React.FC<RadioCardProps> = injectAndObserve(({ radio, store }) => {
-  const { radio: selectedRadio, paused, setPaused, setRadio } = store!.playerState;
+const RadioCard: React.FC<Props> = injectAndObserve(({ radio, store }) => {
+  const { darkMode, playerState } = store!;
+  const { radio: selectedRadio, paused, setPaused, setRadio } = playerState;
   const song = getCurrentSong(radio) ?? radio.playlist[radio.playlist.length - 1].song;
 
   const onClick = () => (radio.id === selectedRadio?.id ? setPaused(!paused) : setRadio(radio));
 
+  const grayColor = darkMode ? '111827' : 'd1d5db';
+
   return (
     <div
-      key={radio.id}
-      className="flex flex-col rounded-lg bg-gray-200 dark:bg-gray-900 p-3 items-center text-center shadow-md"
+      className="flex flex-col rounded-lg p-3 items-center text-center shadow-md "
+      style={{
+        backgroundImage: `linear-gradient(to top, #${grayColor}, #${grayColor}, #${radio.color})`,
+      }}
     >
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-      <div className="w-full mb-2 relative" onClick={onClick}>
+      <div className="w-full mb-2 relative" title={radio.name} onClick={onClick}>
         <img
           className="w-full rounded-lg bg-red-800 shadow-md"
           src={song.img_url}
@@ -51,7 +56,7 @@ const RadioCard: React.FC<RadioCardProps> = injectAndObserve(({ radio, store }) 
         </div>
       </div>
       <div className="max-w-full">
-        <div className="font-semibold truncate" title={song.title}>
+        <div className="text-lg font-semibold truncate" title={song.title}>
           {song.title}
         </div>
         <div className="text-gray-500 font-medium truncate" title={song.artist}>

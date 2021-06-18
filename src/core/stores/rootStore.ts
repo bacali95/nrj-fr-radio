@@ -49,7 +49,7 @@ export class RootStore {
   private getInitialDarkMode = () => {
     let status = localStorage.getItem('darkMode');
 
-    if (status === null) {
+    if (status === null && window.matchMedia) {
       status = `${window.matchMedia('(prefers-color-scheme: dark)').matches}`;
       localStorage.setItem('darkMode', status);
     }
