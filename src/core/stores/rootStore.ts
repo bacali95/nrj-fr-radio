@@ -19,14 +19,15 @@ export class RootStore {
       async (): Promise<void> => {
         await this.refresh();
         const lastRadioId = localStorage.getItem('lastRadioId');
-        const radio = lastRadioId
-          ? this.radios.find((r) => r.id === lastRadioId) ?? this.radios[0]
-          : this.radios[0];
+        const radio = this.radios.find((r) => r.id === lastRadioId) ?? this.radios[0];
         await this.playerState.setRadio(radio);
       }
     );
 
-    setInterval(() => this.refresh(), 30 * 1000);
+    setInterval(async () => {
+      await this.refresh();
+      await this.playerState.refreshSong();
+    }, 30 * 1000);
   }
 
   @action
@@ -35,7 +36,7 @@ export class RootStore {
   };
 
   @action
-  refreshAndGet = async (radio: Radio): Promise<Radio | undefined> => {
+  refreshAndGetRadio = async (radio: Radio): Promise<Radio | undefined> => {
     await this.refresh();
     return this.radios.find((r) => radio.id === r.id);
   };

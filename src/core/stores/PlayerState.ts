@@ -21,10 +21,15 @@ export class PlayerState {
     localStorage.setItem('lastRadioId', radio.id);
 
     this.radio = radio;
+    this.refreshSong();
+  };
+
+  @action
+  refreshSong = async () => {
     this.song = getCurrentSong(this.radio);
 
     if (!this.song) {
-      this.radio = await this.rootStore.refreshAndGet(this.radio);
+      this.radio = await this.rootStore.refreshAndGetRadio(this.radio);
       const playlist = this.radio?.playlist;
       this.song = getCurrentSong(this.radio) ?? playlist?.[playlist?.length - 1].song;
     }
