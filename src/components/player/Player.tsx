@@ -29,7 +29,7 @@ const Player: React.FC<Props> = injectAndObserve(({ store }) => {
   const togglePlayer = async (_paused: boolean) => {
     const audio = audioRef.current;
 
-    if (!audio) return;
+    if (!audio || _paused === paused) return;
 
     try {
       if (!_paused) {
