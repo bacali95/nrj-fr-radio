@@ -29,7 +29,7 @@ export class PlayerState {
     this.song = getCurrentSong(this.radio);
 
     if (!this.song) {
-      this.radio = await this.rootStore.refreshAndGetRadio(this.radio);
+      this.radio = await this.rootStore.refreshAndGetRadio(this.radio!);
       const playlist = this.radio?.playlist;
       this.song = getCurrentSong(this.radio) ?? playlist?.[playlist?.length - 1].song;
     }
