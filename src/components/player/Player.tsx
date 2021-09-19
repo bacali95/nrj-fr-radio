@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { injectAndObserve } from '../../core/utils';
 import { RootStore } from '../../core/stores/rootStore';
@@ -13,6 +13,8 @@ type Props = {
 const Player: React.FC<Props> = injectAndObserve(({ store }) => {
   const { darkMode, playerState } = store!;
   const { radio, song, paused, volume, hdQuality, setPaused } = playerState;
+
+  const [currentRadio, setCurrentRadio] = useState(radio);
 
   const audioRef = React.useRef<HTMLAudioElement | null>();
 
@@ -29,7 +31,7 @@ const Player: React.FC<Props> = injectAndObserve(({ store }) => {
   const togglePlayer = async (_paused: boolean) => {
     const audio = audioRef.current;
 
-    if (!audio || _paused === paused) return;
+    if (!audio) return;
 
     try {
       if (!_paused) {
@@ -48,11 +50,12 @@ const Player: React.FC<Props> = injectAndObserve(({ store }) => {
   }, [paused, hdQuality]);
 
   useEffect(() => {
-    if (radio) {
+    if (radio && radio.id !== currentRadio?.id) {
       setPaused(false);
       togglePlayer(false);
     }
-  }, [radio, setPaused]);
+    setCurrentRadio(radio);
+  }, [radio, currentRadio, setPaused]);
 
   return (
     <div className="fixed w-screen z-50">

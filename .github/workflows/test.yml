@@ -1,6 +1,6 @@
 name: Test
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   release:
@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
+        os: [ macos-latest, windows-latest, ubuntu-latest ]
 
     steps:
       - name: Check out Git repository
@@ -20,8 +20,7 @@ jobs:
           node-version: 15
 
       - name: yarn install
-        run: |
-          yarn install --frozen-lockfile --network-timeout 300000
+        run: yarn install
 
       - name: yarn test
         env:
@@ -30,4 +29,3 @@ jobs:
           yarn package
           yarn lint
           yarn tsc
-          yarn test

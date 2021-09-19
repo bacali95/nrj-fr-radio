@@ -12,8 +12,7 @@
     "postinstall": "node -r @babel/register ./.nfr/scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn cross-env NODE_ENV=development webpack --config ./.nfr/configs/webpack.config.renderer.dev.dll.babel.js && opencollective-postinstall && yarn-deduplicate yarn.lock",
     "start": "node -r @babel/register ./.nfr/scripts/CheckPortInUse.js && yarn start:renderer",
     "start:main": "cross-env NODE_ENV=development electron -r ./.nfr/scripts/BabelRegister ./src/main.dev.ts",
-    "start:renderer": "cross-env NODE_ENV=development webpack serve --config ./.nfr/configs/webpack.config.renderer.dev.babel.js",
-    "test": "jest"
+    "start:renderer": "cross-env NODE_ENV=development webpack serve --config ./.nfr/configs/webpack.config.renderer.dev.babel.js"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

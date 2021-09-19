@@ -21,7 +21,7 @@ export class PlayerState {
     localStorage.setItem('lastRadioId', radio.id);
 
     this.radio = radio;
-    this.refreshSong();
+    await this.refreshSong();
   };
 
   @action

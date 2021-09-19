@@ -1,4 +1,4 @@
-import { action, autorun, observable } from 'mobx';
+import { action, observable } from 'mobx';
 import http from '../http-client';
 import { PlayerState } from './PlayerState';
 import { Radio } from '../types';
@@ -15,14 +15,13 @@ export class RootStore {
 
     this.playerState = new PlayerState(this);
 
-    autorun(
-      async (): Promise<void> => {
-        await this.refresh();
+    this.refresh()
+      .then(() => {
         const lastRadioId = localStorage.getItem('lastRadioId');
         const radio = this.radios.find((r) => r.id === lastRadioId) ?? this.radios[0];
-        await this.playerState.setRadio(radio);
-      }
-    );
+        return this.playerState.setRadio(radio);
+      })
+      .catch(undefined);
 
     setInterval(async () => {
       await this.refresh();
