@@ -52,7 +52,7 @@ const RadioCard: React.FC<Props> = injectAndObserve(({ radio, store }) => {
             }
           )}
         >
-          {radio.id !== selectedRadio?.id || paused ? <SVG.CardPlayButton /> : <SVG.AnimatedBars />}
+          {radio.id !== selectedRadio?.id || paused ? <SVG.CardPlayButton /> : <SVG.Bars />}
         </div>
       </div>
       <div className="max-w-full">

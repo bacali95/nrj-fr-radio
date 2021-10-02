@@ -1,56 +1,20 @@
 import React from 'react';
 
-class SVG {
-  static AnimatedBars() {
-    const bars = [
-      {
-        startHeight: 40,
-        endHeight: 60,
-      },
-      {
-        startHeight: 30,
-        endHeight: 80,
-      },
-      {
-        startHeight: 60,
-        endHeight: 45,
-      },
-    ];
-
-    const height = 50;
-    const gap = 5;
-    const width = (8 + gap) * bars.length - gap;
-
+export default class SVG {
+  static Bars() {
     return (
-      <svg height={height} width={width} viewBox="0 0 100 100" fill="#ff">
-        {bars.map(({ startHeight, endHeight }, index) => (
+      <svg height="50" width="35" viewBox="0 0 100 100" fill="#fff">
+        {[45, 80, 60].map((height, index) => (
           <rect
-            key={`${startHeight}-${endHeight}`}
-            height={startHeight}
+            key={`${height}`}
+            height={height}
             width={30}
             rx="5"
             ry="5"
             x={index * 35}
-            y={100 - startHeight}
+            y={100 - height}
             fill="currentColor"
-          >
-            <animate
-              attributeName="height"
-              attributeType="XML"
-              type="translate"
-              values={`${endHeight};${startHeight};${endHeight}`}
-              dur="0.6"
-              repeatCount="indefinite"
-            />
-            <animate
-              attributeName="y"
-              attributeType="XML"
-              type="translate"
-              values={`${100 - endHeight};${100 - startHeight};${100 - endHeight}`}
-              dur="0.6"
-              repeatCount="indefinite"
-            />
-          </rect>
+          />
         ))}
       </svg>
     );
@@ -151,5 +115,3 @@ class SVG {
     </svg>
   );
 }
-
-export default SVG;
