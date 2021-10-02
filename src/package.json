@@ -1,7 +1,7 @@
 {
   "name": "nrj-fr-radio",
   "productName": "NRJ.fr Radio",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "All the hits of your favorite artists are on NRJ.",
   "main": "./main.prod.js",
   "author": {
